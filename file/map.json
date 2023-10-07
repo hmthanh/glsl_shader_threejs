@@ -1,0 +1,21 @@
+{
+    "type": "Map",
+    "Co-ordinates": [
+        {
+            "text": "Home",
+            "size": 1.0,
+            "country": "Vietnam",
+            "city": "Ho Chi Minh City",
+            "lat": "10.694385",
+            "long": "106.735454"
+        },
+        {
+            "text": "UAE",
+            "size": 1.0,
+            "country": "Dubai",
+            "city": "UAE",
+            "lat": "25.216407",
+            "long": "55.264813"
+        }
+    ]
+}

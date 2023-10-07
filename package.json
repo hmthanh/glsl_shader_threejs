@@ -5,7 +5,8 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "three": "^0.156.1"
+    "three": "^0.156.1",
+    "three-globe": "^2.29.3"
   },
   "devDependencies": {
     "vite": "^4.4.9",

@@ -3,6 +3,7 @@ import { SavePass } from "three/examples/jsm/postprocessing/SavePass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { BlendShader } from "three/examples/jsm/shaders/BlendShader.js";
 import { CopyShader } from "three/examples/jsm/shaders/CopyShader.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 // import vertexShader from '../glsl/vertex.glsl'
 // import fragmentShader from '../glsl/fragment.glsl'
@@ -15,6 +16,50 @@ render.setPixelRatio(1);
 document.body.appendChild(render.domElement);
 
 // ******************************************************
+
+// Load a GLTF model
+const loader = new GLTFLoader();
+loader.load("model.gltf", (gltf) => {
+  scene.add(gltf.scene);
+});
+
+// ******************************************************
+
+const maxParticleCount = 1000;
+const particleCount = 500;
+const r = 10;
+const rHalf = r / 2;
+const maxConnections = 20;
+const minDistance = 2.5;
+let vertexpos = 0;
+let colorpos = 0;
+let numConnected = 0;
+
+const segments = maxParticleCount * maxParticleCount;
+
+// Geometry
+const positions = new Float32Array(segments * 3);
+const colors = new Float32Array(segments * 3);
+
+// Particles
+const particlePositions = new Float32Array(maxParticleCount * 3);
+const particleData = [];
+const v = new Three.Vector3();
+
+for (let i = 0; i < maxParticleCount; i++) {
+  const x = Math.random() * r - r / 2;
+  const y = Math.random() * r - r / 2;
+  const z = Math.random() * r - r / 2;
+
+  particlePositions[i * 3] = x;
+  particlePositions[i * 3 + 1] = y;
+  particlePositions[i * 3 + 2] = z;
+
+  const v = new Three.Vector3(-1 + Math.random() * 2, -1 + Math.random() * 2, -1 + Math.random() * 2);
+  particleData.push({ velocity: v.normalize().divideScalar(50), numConnections: 0 });
+}
+
+// particlesRef.current.setDrawRange(0, particleCount)
 
 // Vertex shader GLSL code
 const vertexShader = `
